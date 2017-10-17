@@ -4,6 +4,8 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   let query;
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Content-Type", "application/json");
 
   try {
     query = req.query.q;

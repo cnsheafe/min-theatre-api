@@ -29,15 +29,10 @@ function getResults(query) {
  * @returns {Promise} - Info from video resource
  */
 function getExtraVideoInfo(videoIds) {
-  let videoIdsString = ""; 
-  videoIds.forEach(function(vidId) {
-    videoIdsString += vidId + ",";
-  });
-  videoIdsString = videoIdsString.trim().slice(0, videoIdsString.length-1);
   const url = "".concat(
     "https://www.googleapis.com/youtube/v3/videos?",
     "part=contentDetails,statistics&",
-    `id=${videoIdsString}&`,
+    `id=${videoIds}&`,
     `key=${process.env.YT_KEY}`
   );
   return getYTResource(url)

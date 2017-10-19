@@ -24,7 +24,7 @@ describe("Search", function () {
   describe("getExtraVideoInfo", function() {
     test("should return list of additional info", function() {
       expect.assertions(1);
-      return search.getExtraVideoInfo(["1", "2"]).then(items => {
+      return search.getExtraVideoInfo("hello, bye").then(items => {
         expect(items).toHaveLength(5);
       });
     })

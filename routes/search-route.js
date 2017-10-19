@@ -29,6 +29,8 @@ router.get("/", (req, res) => {
 router.post("/extra", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Content-Type", "application/json");
+  res.setHeader("Access-Control-Allow-Methods", "POST");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
 
   let videoIds;
   console.log(req.body);  
@@ -42,8 +44,8 @@ router.post("/extra", (req, res) => {
   search.getExtraVideoInfo(videoIds)
     .then(items => {
       if (items !== null) {
+        res.status(200);
         res.json(items);
-        res.status(201);
       }
       else {
         res.status = 400;

@@ -1,7 +1,9 @@
 const search = require("../services/search-service");
 const express = require("express");
+const bodyParser = require("body-parser");
 const router = express.Router();
 
+router.use(bodyParser.json());
 router.get("/", (req, res) => {
   let query;
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -14,19 +16,36 @@ router.get("/", (req, res) => {
     console.error(error);
   }
 
-  const url = "".concat(
-    "https://www.googleapis.com/youtube/v3/search?",
-    "part=snippet&",
-    "type=video&",
-    `key=${process.env.YT_KEY}&`,
-    `q=${query}`
-  );
-
-  search(url)
+  search.getResults(query)
     .then(items => {
       if (items !== null) {
         res.json(items);
       } else {
+        res.status = 400;
+      }
+    });
+});
+
+router.post("/extra", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Content-Type", "application/json");
+
+  let videoIds;
+  console.log(req.body);  
+  try {
+    videoIds = req.body.ids;
+  } catch (error) {
+    res.status(400);
+    console.error(error);
+  }
+
+  search.getExtraVideoInfo(videoIds)
+    .then(items => {
+      if (items !== null) {
+        res.json(items);
+        res.status(201);
+      }
+      else {
         res.status = 400;
       }
     });

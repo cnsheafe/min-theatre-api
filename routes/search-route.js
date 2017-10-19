@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
 
-router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({extended: true}));
 router.get("/", (req, res) => {
   let query;
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -29,8 +29,6 @@ router.get("/", (req, res) => {
 router.post("/extra", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Content-Type", "application/json");
-  res.setHeader("Access-Control-Allow-Methods", "POST");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
 
   let videoIds;
   console.log(req.body);  

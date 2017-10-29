@@ -11,6 +11,7 @@ function getResults(query) {
     "part=snippet&",
     "type=video&",
     `key=${process.env.YT_KEY}&`,
+    "maxResults=25&",
     `q=${query}`
   );
 
